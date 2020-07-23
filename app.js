@@ -27,7 +27,7 @@ app.use(bodyParser.urlencoded({
 }));
 //place code for express-session bellow
 app.use(session({
-  secret: "Our littleSecret.",
+  secret: process.env.SECRET,
   resave: false,
   saveUninitialized: true
 }));
