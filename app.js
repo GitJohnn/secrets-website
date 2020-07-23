@@ -26,7 +26,7 @@ app.set("view engine","ejs");
 app.use(bodyParser.urlencoded({
   extended: true
 }));
-//place code for express-session bellow
+//place code for express-session bellow;
 app.use(session({
   secret: process.env.SECRET,
   resave: false,
