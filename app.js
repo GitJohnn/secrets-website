@@ -163,7 +163,6 @@ app.post("/submit",function(req,res){
       console.log(err);
     }
     else if(foundUser){
-      console.log(foundUser._id);
       foundUser.secret = submittedSecret;
       foundUser.save(function(){
         res.redirect("/secrets");
