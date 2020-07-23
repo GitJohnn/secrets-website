@@ -114,7 +114,7 @@ app.get("/auth/google/secrets",
     res.redirect("/secrets");
   });
 
-app.get("/auth/facebook", passport.authenticate("facebook"));
+app.get("/auth/facebook", passport.authenticate("facebook"),{ scope: 'read_stream' });
 
 app.get("/auth/facebook/secrets",
   passport.authenticate("facebook", { successRedirect: "/secrets",  failureRedirect: "/login" }));
