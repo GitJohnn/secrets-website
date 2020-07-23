@@ -36,7 +36,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-mongoose.connect("mongodb://localhost:27017/userDB",{useNewUrlParser:true, useUnifiedTopology: true});
+mongoose.connect("mongodb+srv://admin-jonathan:" + process.env.MONGO_ATLAS_PASSWORD + "@cluster0.k6ckh.mongodb.net/userDB",{useNewUrlParser:true, useUnifiedTopology: true});
 mongoose.set('useCreateIndex', true);
 
 const userSchema = new mongoose.Schema({
@@ -74,7 +74,7 @@ passport.deserializeUser(function(id, done) {
 passport.use(new GoogleStrategy({
     clientID: process.env.CLIENT_ID,
     clientSecret: process.env.CLIENT_SECRET,
-    callbackURL: "http://localhost:3000/auth/google/secrets",
+    callbackURL: "https://fathomless-cove-48237.herokuapp.com/auth/google/secrets",
     userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo"
   },
   function(accessToken, refreshToken, profile, cb) {
@@ -88,7 +88,7 @@ passport.use(new GoogleStrategy({
 passport.use(new FacebookStrategy({
     clientID: process.env.FACEBOOK_APP_ID,
     clientSecret: process.env.FACEBOOK_APP_SECRET,
-    callbackURL: "http://localhost:3000/auth/facebook/secrets"
+    callbackURL: "https://fathomless-cove-48237.herokuapp.com/auth/facebook/secrets"
   },
   function(accessToken, refreshToken, profile, done) {
     User.findOrCreate({ facebookId:profile.id }, function(err, user) {
@@ -234,7 +234,12 @@ app.post("/login",function(req,res){
   //});
 });//login post ending
 
+let port = process.ev.PORT;
+if(port == null || port==""){
+  port = 3000;
+}
 
-app.listen(3000,function(){
-  console.log("Server is running on port 3000");
+
+app.listen(port,function(){
+  console.log("Server has Started");
 });
