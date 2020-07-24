@@ -86,10 +86,11 @@ passport.use(new GoogleStrategy({
   }
 ));
 //passpor use Facebook strategy setup
+//https://fathomless-cove-48237.herokuapp.com
 passport.use(new FacebookStrategy({
     clientID: process.env.FACEBOOK_APP_ID,
     clientSecret: process.env.FACEBOOK_APP_SECRET,
-    callbackURL: "https://fathomless-cove-48237.herokuapp.com/auth/facebook/secrets"
+    callbackURL: "http://fathomless-cove-48237.herokuapp.com/auth/facebook/secrets"
   },
   function(accessToken, refreshToken, profile, done) {
     User.findOrCreate({ facebookId:profile.id }, function(err, user) {
