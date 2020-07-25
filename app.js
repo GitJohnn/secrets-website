@@ -36,7 +36,7 @@ app.use(session({
 //we initialize express session with passport to establish authentication
 app.use(passport.initialize());
 app.use(passport.session());
-
+//app.enable("trust proxy");
 mongoose.connect("mongodb+srv://admin-jonathan:" + process.env.MONGO_ATLAS_PASSWORD + "@cluster0.k6ckh.mongodb.net/userDB",{useNewUrlParser:true, useUnifiedTopology: true});
 mongoose.set('useCreateIndex', true);
 
@@ -75,7 +75,7 @@ passport.deserializeUser(function(id, done) {
 passport.use(new GoogleStrategy({
     clientID: process.env.CLIENT_ID,
     clientSecret: process.env.CLIENT_SECRET,
-    callbackURL: "https://fathomless-cove-48237.herokuapp.com/auth/google/secrets",
+    callbackURL: "http://localhost:3000/auth/google/secrets", //"https://fathomless-cove-48237.herokuapp.com/auth/google/secrets",
     userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo"
   },
   function(accessToken, refreshToken, profile, cb) {
@@ -86,11 +86,11 @@ passport.use(new GoogleStrategy({
   }
 ));
 //passpor use Facebook strategy setup
-//https://fathomless-cove-48237.herokuapp.com
+//https://fathomless-cove-48237.herokuapp.com/
 passport.use(new FacebookStrategy({
     clientID: process.env.FACEBOOK_APP_ID,
     clientSecret: process.env.FACEBOOK_APP_SECRET,
-    callbackURL: "https://fathomless-cove-48237.herokuapp.com/auth/facebook/secrets"
+    callbackURL: "https://localhost:3000/auth/facebook/secrets"//"https://fathomless-cove-48237.herokuapp.com/auth/facebook/secrets"
   },
   function(accessToken, refreshToken, profile, done) {
     User.findOrCreate({ facebookId:profile.id }, function(err, user) {
