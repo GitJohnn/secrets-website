@@ -41,7 +41,10 @@ mongoose.connect("mongodb+srv://admin-jonathan:" + process.env.MONGO_ATLAS_PASSW
 mongoose.set('useCreateIndex', true);
 
 const userSchema = new mongoose.Schema({
-  email: String,
+  email: {
+    type: String,
+    sparse: true
+  },
   password: String,
   googleId: String,
   facebookId: String,
